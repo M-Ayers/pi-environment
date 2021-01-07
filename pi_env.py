@@ -18,12 +18,12 @@ def parser():
     parser.add_argument('-h', '--humidity_interval', help='interval frequency, in seconds, for environment polling.  use value lower than 5 to disable. (default: 0, minimum: 5 seconds)', metavar='<interval>', default=0, required=False)
     return parser.parse_args()
 
-def prepareDS18():
+def prepareDS18(interval):
     ds18 = W1ThermSensor()
     temp_gauge_1.set(0)
     return ds18
 
-def prepareDHT22(gpio):
+def prepareDHT22(gpio, interval):
     dht22 = DHT22(gpio)
     temp_gauge_2.set(0)
     humidity_gauge.set(0)
@@ -35,9 +35,9 @@ if __name__ == '__main__':
     humidity_enabled = args.humidity_interval >= 5
 
     if temp_enabled:
-        ds18_1 = prepareDS18()
+        ds18_1 = prepareDS18(args.temp_interval)
     if humidity_enabled:
-        dht22_1 = prepareDHT22(gpio_1)
+        dht22_1 = prepareDHT22(gpio_1, args.humidity_interval)
 
     start_http_server(9101)
 
@@ -51,4 +51,4 @@ if __name__ == '__main__':
                 temp_gauge_2.set(dht22_response.temp_c)
                 humidity_gauge.set(dht22_response.humidity)
 
-        sleep(args.interval)
+        sleep(5)
