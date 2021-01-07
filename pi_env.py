@@ -14,8 +14,8 @@ humidity_gauge = Gauge('pi_env_humidity_1', 'Humidity Gauge 1 - DHT22')
 
 def parser():
     parser = argparse.ArgumentParser(description='a simple environment monitoring and publishing utility for raspberry pi.')
-    parser.add_argument('-t', '--temp_interval', help='interval frequency, in seconds, for environment polling. use value lower than 5 to disable. (default: 0, minimum: 5 seconds)', metavar='<interval>', default=0, required=False)
-    parser.add_argument('-h', '--humidity_interval', help='interval frequency, in seconds, for environment polling.  use value lower than 5 to disable. (default: 0, minimum: 5 seconds)', metavar='<interval>', default=0, required=False)
+    parser.add_argument('-ti', '--temp_interval', help='interval frequency, in seconds, for environment polling. use value lower than 5 to disable. (default: 0, minimum: 5 seconds)', metavar='<interval>', default=0, required=False)
+    parser.add_argument('-hi', '--humidity_interval', help='interval frequency, in seconds, for environment polling.  use value lower than 5 to disable. (default: 0, minimum: 5 seconds)', metavar='<interval>', default=0, required=False)
     return parser.parse_args()
 
 def prepareDS18(interval):
